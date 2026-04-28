@@ -46,3 +46,12 @@ def find_missing_tracks(
             missing.append(track)
 
     return missing, matched
+
+
+def find_unmatched_local(
+    local_index: dict[str, Path],
+    matched: dict[SpotifyTrack, Path],
+) -> list[Path]:
+    """Return local files that didn't match any Spotify track in this playlist."""
+    matched_paths = set(matched.values())
+    return [p for p in local_index.values() if p not in matched_paths]
