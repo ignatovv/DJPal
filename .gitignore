@@ -1,0 +1,15 @@
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+.env
+config.yaml
+*.flac
+*.mp3
+downloads/
+.DS_Store
+dist/
+build/
+*.spec.bak
+DJPal-macOS.zip

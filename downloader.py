@@ -2,7 +2,7 @@
 
 import shutil
 import subprocess
-import time
+import sys
 from pathlib import Path
 
 
@@ -15,7 +15,16 @@ class DownloadError(Exception):
 
 
 def _check_deemix() -> str:
-    """Return path to deemix binary or raise."""
+    """Return path to deemix (or bundled deemix_runner) binary, or raise."""
+    # PyInstaller onedir: deemix_runner sits next to the main djpal executable
+    if getattr(sys, "frozen", False):
+        bundle_dir = Path(sys.executable).parent
+        for name in ("deemix_runner", "deemix_runner.exe"):
+            candidate = bundle_dir / name
+            if candidate.exists():
+                return str(candidate)
+
+    # Normal Python environment
     binary = shutil.which("deemix")
     if not binary:
         raise DeemixNotFoundError(

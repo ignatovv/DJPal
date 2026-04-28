@@ -237,6 +237,49 @@ Raise the threshold: `python sync.py --threshold 92`.
 
 ---
 
+---
+
+## Building a standalone executable (no Python required)
+
+If you want to share DJPal with someone who doesn't have Python installed, you can build a self-contained binary using PyInstaller.
+
+### Build (macOS)
+
+```bash
+# One command — installs PyInstaller if needed, then builds
+python build.py
+
+# Or via make
+make build
+
+# Zip for sharing
+make zip          # → DJPal-macOS.zip
+```
+
+Output: `dist/DJPal/` — a folder containing `djpal`, `deemix_runner`, and all dependencies. Zip it and share.
+
+### For your friend (macOS, no Python needed)
+
+1. Download `DJPal-macOS.zip` and unzip it
+2. Open **Terminal** and `cd` into the `DJPal` folder:
+   ```bash
+   cd ~/Downloads/DJPal
+   ```
+3. First time only — remove macOS quarantine flag:
+   ```bash
+   xattr -cr djpal deemix_runner
+   ```
+   *(macOS blocks unsigned binaries downloaded from the internet by default)*
+4. Run it:
+   ```bash
+   ./djpal
+   ```
+   The setup wizard launches automatically on first run.
+
+> If you get "cannot be opened because the developer cannot be verified", right-click `djpal` → Open → Open anyway.
+
+---
+
 ## License
 
 MIT
